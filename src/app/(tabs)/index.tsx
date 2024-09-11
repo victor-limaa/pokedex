@@ -1,13 +1,10 @@
 import { Image, StyleSheet, Platform } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { HomeScreen } from '@/screens/HomeScreen';
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.titleContainer}>
-      <ThemedText type="title">Welcome!</ThemedText>
-    </ThemedView>
-  );
+export default function Home() {
+  return <HomeScreen />;
 }
 
 const styles = StyleSheet.create({

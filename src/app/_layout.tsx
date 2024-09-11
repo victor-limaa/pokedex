@@ -16,6 +16,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  if (__DEV__) {
+    require('../../ReactotronConfig');
+  }
+
   const scheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('@assets/fonts/SpaceMono-Regular.ttf'),
