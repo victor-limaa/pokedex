@@ -1,17 +1,10 @@
-export type PokemonListType = {
-  name: string;
-  url: string;
-  id: number;
-  types: { slot: number; type: { name: string; url: string } }[];
-  sprites: { front_default: string };
-  stats: { base_stat: number; effort: number; stat: { name: string } }[];
-};
+import { PokemonType } from './Pokemon';
 
 export type PokemonListResponse = {
   count: number;
   next: string;
   previous: string;
-  results: PokemonListType[];
+  results: PokemonType[];
 };
 
 export type PokemonListPayload = {
