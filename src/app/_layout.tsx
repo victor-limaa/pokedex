@@ -1,3 +1,4 @@
+import { Loading } from '@/components/Loading';
 import {
   DarkTheme,
   DefaultTheme,
@@ -45,6 +46,7 @@ export default function RootLayout() {
           <Stack.Screen name="pokemon" options={{ headerShown: false }} />
         </Stack>
       </SafeAreaView>
+      <Loading />
     </ThemeProvider>
   );
 }

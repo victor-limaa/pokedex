@@ -4,19 +4,19 @@ import { ThemedView } from '@/components/ThemedView';
 import { PokemonType } from '@/models/Pokemon';
 import { PokemonService } from '@/services/PokemonService';
 import useLoadingStore from '@/stores/useLoadingStore';
+import { usePokemonListStore } from '@/stores/usePokemonListStore';
+import { isLoading } from 'expo-font';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 
 export const HomeScreen = () => {
-  const [pokemonList, setPokemonList] = useState<PokemonType[]>([]);
-  const [page, setPage] = useState(0);
+  const { pokemonList, setPokemonList } = usePokemonListStore((state) => state);
+  // const [page, setPage] = useState<number | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
-  const { clearLoading, setLoading, isLoading } = useLoadingStore(
-    (state) => state,
-  );
+  const { clearLoading, setLoading } = useLoadingStore((state) => state);
 
-  const handleGetPokemonList = async () => {
+  const handleGetPokemonList = async (page: number) => {
     try {
       if (!hasNextPage) {
         return;
@@ -27,7 +27,7 @@ export const HomeScreen = () => {
         offset: page * 10,
       });
       setHasNextPage(data.next !== null);
-      setPokemonList((prev) => [...prev, ...data.results]);
+      setPokemonList([...pokemonList, ...data.results]);
       clearLoading();
     } catch (error) {
       console.error(error);
@@ -35,23 +35,35 @@ export const HomeScreen = () => {
     }
   };
 
+  const getPage = () => {
+    if (pokemonList.length) {
+      if (pokemonList.length === 10) {
+        return 1;
+      }
+      return pokemonList.length / 10;
+    }
+    return 0;
+  };
+
   const onEndReached = () => {
     if (hasNextPage) {
-      setPage((prev) => prev + 1);
+      const page = getPage();
+      handleGetPokemonList(page);
     }
   };
 
-  const handleNavigateToPokemon = (pokemon: PokemonType) => {
-    setLoading();
-    router.push({
+  const handleNavigateToPokemon = (id: number) => {
+    router.navigate({
       pathname: '/pokemon',
-      params: { pokemon: JSON.stringify(pokemon) },
+      params: { id },
     });
   };
 
   useEffect(() => {
-    handleGetPokemonList();
-  }, [page]);
+    if (!pokemonList.length) {
+      handleGetPokemonList(getPage());
+    }
+  }, []);
 
   return (
     <ThemedView style={{ flex: 1, padding: 24 }}>
@@ -60,7 +72,7 @@ export const HomeScreen = () => {
         <FlatList
           data={pokemonList}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleNavigateToPokemon(item)}>
+            <TouchableOpacity onPress={() => handleNavigateToPokemon(item.id)}>
               <Card
                 name={item.name}
                 thumb={item.sprites.other['official-artwork'].front_default}

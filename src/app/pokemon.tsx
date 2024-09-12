@@ -1,9 +1,9 @@
 import { PokemonScreen } from '@/screens/PokemonScreen';
 import { useLocalSearchParams } from 'expo-router';
+import { useEffect } from 'react';
 
-export default function Pokemon({ navigation }: any) {
-  const { pokemon } = useLocalSearchParams();
-  const pokemonObj = JSON.parse(pokemon);
+export default function Pokemon() {
+  const { id } = useLocalSearchParams();
 
-  return <PokemonScreen pokemon={pokemonObj} />;
+  return <PokemonScreen pokemonId={parseInt(id)} />;
 }
