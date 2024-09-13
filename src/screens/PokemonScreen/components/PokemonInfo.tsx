@@ -67,7 +67,7 @@ export const PokemonInfo = ({ pokemon }: { pokemon: PokemonType }) => {
       <View style={styles.info}>
         <ThemedText type="defaultSemiBold">Abilities</ThemedText>
         <View style={styles.row}>
-          {pokemon.abilities.map((ability, index) => (
+          {pokemon.abilities?.map((ability, index) => (
             <ThemedText
               key={ability.ability.name}
               style={{ textTransform: 'capitalize' }}
@@ -78,7 +78,7 @@ export const PokemonInfo = ({ pokemon }: { pokemon: PokemonType }) => {
           ))}
         </View>
       </View>
-      {pokemon.stats.map((stat) => (
+      {pokemon.stats?.map((stat) => (
         <View style={styles.info} key={stat.stat.name}>
           <ThemedText
             type="defaultSemiBold"

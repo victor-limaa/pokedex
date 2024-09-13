@@ -45,7 +45,11 @@ export const Card = ({ name, thumb, types, id }: CardProps) => {
             ))}
         </View>
       </View>
-      <Image source={{ uri: thumb }} style={styles.image} />
+      <Image
+        testID="pokemon-image"
+        source={{ uri: thumb }}
+        style={styles.image}
+      />
     </ThemedView>
   );
 };

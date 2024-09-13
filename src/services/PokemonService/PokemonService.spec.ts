@@ -21,6 +21,16 @@ describe('PokemonService', () => {
       expect(result).toEqual(mockData);
     });
 
+    it('should fetch pokemon data by id', async () => {
+      const mockData = { name: 'bubasaur', id: 1 };
+      (apiClient.get as jest.Mock).mockResolvedValueOnce({ data: mockData });
+
+      const result = await PokemonService.getPokemonById(1);
+
+      expect(apiClient.get).toHaveBeenCalledWith('/pokemon/1');
+      expect(result).toEqual(mockData);
+    });
+
     it('should throw an error when the API request fails', async () => {
       const errorMessage = 'Network Error';
       (apiClient.get as jest.Mock).mockRejectedValueOnce(

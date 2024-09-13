@@ -24,7 +24,7 @@ export const Loading = () => {
   }, []);
 
   return (
-    <Modal transparent visible={isLoading}>
+    <Modal transparent visible={isLoading} testID="loading-modal">
       <ThemedView
         style={{
           flex: 1,
@@ -44,6 +44,7 @@ export const Loading = () => {
               },
             ],
           }}
+          testID={'loading-animated-view'}
         >
           <Pokeball />
         </Animated.View>

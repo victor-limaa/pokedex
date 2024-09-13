@@ -31,7 +31,7 @@ export const Search = ({ onSearch }: SearchProps) => {
         onChangeText={(text) => setText(text)}
         onSubmitEditing={handleSearch}
       />
-      <TouchableOpacity onPress={handleSearch}>
+      <TouchableOpacity onPress={handleSearch} testID="search-button">
         <SearchIcon color={colors.icon} size={20} />
       </TouchableOpacity>
     </ThemedView>
