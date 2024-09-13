@@ -36,7 +36,17 @@ const getPokemonByName = async (name: string) => {
   }
 };
 
+const getPokemonById = async (id: number) => {
+  try {
+    const response = await apiClient.get(`/pokemon/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const PokemonService = {
   getPokemonList,
   getPokemonByName,
+  getPokemonById,
 };

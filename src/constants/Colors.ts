@@ -11,6 +11,7 @@ export type ColorsKeys = {
   border: string;
   backgroundOpacity: string;
   card: any;
+  placeholder: string;
 };
 
 const pokemonCardBackgroundColors = {
@@ -45,6 +46,7 @@ export const Colors = {
     border: '#11181C',
     backgroundOpacity: 'rgba(21, 23, 24, 0.3)',
     card: pokemonCardBackgroundColors,
+    placeholder: '#687076',
   },
   dark: {
     text: '#ECEDEE',
@@ -56,5 +58,6 @@ export const Colors = {
     border: '#ECEDEE',
     backgroundOpacity: 'rgba(255, 255, 255, 0.3)',
     card: pokemonCardBackgroundColors,
+    placeholder: '#9BA1A6',
   },
 };

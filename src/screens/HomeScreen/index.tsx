@@ -1,4 +1,5 @@
 import { Card } from '@/components/Card';
+import { Search } from '@/components/Search';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { PokemonType } from '@/models/Pokemon';
@@ -12,9 +13,9 @@ import { FlatList, TouchableOpacity } from 'react-native';
 
 export const HomeScreen = () => {
   const { pokemonList, setPokemonList } = usePokemonListStore((state) => state);
-  // const [page, setPage] = useState<number | null>(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const { clearLoading, setLoading } = useLoadingStore((state) => state);
+  const [filteredPokemonList, setFilteredPokemonList] = useState(pokemonList);
 
   const handleGetPokemonList = async (page: number) => {
     try {
@@ -30,7 +31,6 @@ export const HomeScreen = () => {
       setPokemonList([...pokemonList, ...data.results]);
       clearLoading();
     } catch (error) {
-      console.error(error);
       clearLoading();
     }
   };
@@ -46,7 +46,7 @@ export const HomeScreen = () => {
   };
 
   const onEndReached = () => {
-    if (hasNextPage) {
+    if (hasNextPage && !filteredPokemonList.length) {
       const page = getPage();
       handleGetPokemonList(page);
     }
@@ -59,18 +59,46 @@ export const HomeScreen = () => {
     });
   };
 
+  const handleSearch = async (text: string) => {
+    if (text) {
+      const filtered = pokemonList.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(text.toLowerCase()),
+      );
+      if (!filtered.length) {
+        try {
+          setLoading();
+          const response = await PokemonService.getPokemonByName(text);
+          setFilteredPokemonList([response]);
+          clearLoading();
+          return;
+        } catch (error) {
+          clearLoading();
+        }
+      }
+      setFilteredPokemonList(filtered);
+    } else {
+      setFilteredPokemonList(pokemonList);
+    }
+  };
+
   useEffect(() => {
     if (!pokemonList.length) {
       handleGetPokemonList(getPage());
     }
   }, []);
 
+  useEffect(() => {
+    setFilteredPokemonList(pokemonList);
+  }, [pokemonList]);
+
   return (
     <ThemedView style={{ flex: 1, padding: 24 }}>
-      <ThemedText>Home Screen</ThemedText>
-      {pokemonList.length ? (
+      <ThemedView style={{ flexDirection: 'row', height: 54, width: '100%' }}>
+        <Search onSearch={handleSearch} />
+      </ThemedView>
+      {filteredPokemonList.length ? (
         <FlatList
-          data={pokemonList}
+          data={filteredPokemonList}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => handleNavigateToPokemon(item.id)}>
               <Card
@@ -89,7 +117,7 @@ export const HomeScreen = () => {
           testID="pokemon-list"
         />
       ) : (
-        <ThemedText>Not Found</ThemedText>
+        <ThemedText>No pokemon found</ThemedText>
       )}
     </ThemedView>
   );

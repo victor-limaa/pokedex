@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import { useEffect, useState } from 'react';
 import {
+  Dimensions,
   Image,
   Pressable,
   StyleSheet,
@@ -49,12 +50,13 @@ export const PokemonPreview = ({ pokemon }: { pokemon: PokemonType }) => {
         <Pressable onPress={() => router.back()}>
           <ArrowLeft size={32} color={colors.text} />
         </Pressable>
-        <TouchableOpacity onPress={handleCatchPokemon}>
-          <View style={styles.catchButton}>
-            <ThemedText type="subtitle">
-              {isCatched ? 'Catched' : 'Catch'}
-            </ThemedText>
-          </View>
+        <TouchableOpacity
+          onPress={handleCatchPokemon}
+          style={styles.catchButton}
+        >
+          <ThemedText type="subtitle">
+            {isCatched ? 'Catched' : 'Catch'}
+          </ThemedText>
         </TouchableOpacity>
         <ThemedText style={styles.id}>{formatPokemonId(pokemon.id)}</ThemedText>
       </View>
@@ -94,6 +96,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+    paddingTop: 8,
+    marginBottom: 16,
   },
   id: {
     fontSize: 24,
@@ -118,10 +122,16 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   catchButton: {
+    width: 140,
+    alignItems: 'center',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 24,
     borderWidth: 1,
     borderColor: 'white',
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    transform: [{ translateX: -70 }],
   },
 });
