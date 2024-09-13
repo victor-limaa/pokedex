@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# Pokedex React Native com Expo
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este projeto é um exemplo de aplicação React Native criada com Expo.
 
-## Get started
+## Tecnologias Utilizadas
 
-1. Install dependencies
+- **React Native**: Framework para desenvolvimento de aplicativos móveis.
+- **Expo**: Ferramenta para desenvolvimento e construção de aplicativos React Native.
+- **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **Zustand**: Biblioteca para gestão de estado.
+- **MMKV**: Biblioteca de persistência de dados para React Native.
+- **Jest**: Framework para testes em JavaScript.
+- **Testing Library**: Biblioteca para testes de componentes React e React Native.
 
-   ```bash
-   npm install
-   ```
+## Pré-requisitos
 
-2. Start the app
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 
-   ```bash
-    npx expo start
-   ```
+- [Node.js](https://nodejs.org/) (versão LTS recomendada)
+- [Yarn](https://classic.yarnpkg.com/) ou [npm](https://www.npmjs.com/)
+- [Expo CLI](https://docs.expo.dev/get-started/installation/)
 
-In the output, you'll find options to open the app in a
+## Instalação
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Clone o repositório:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+   ````bash
+   git clone https://github.com/your-username/your-project.git
+   cd your-project```
 
-## Get a fresh project
+   ````
 
-When you're ready, run:
+2. Instale as dependências:
+   `yarn install` ou `npm install`
 
-```bash
-npm run reset-project
-```
+3. Instale as dependências nativas:
+   O projeto utiliza MMKV, que requer dependências nativas. Portanto, será necessário usar um build de desenvolvimento:
+   `expo install`
+   `expo prebuild`
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Executando o Projeto
 
-## Learn more
+Para executar o projeto pela primeira vez deve utilizar o comando de acordo com a plataforma desejada:
+`expo run:android` ou `expo run:ios`
 
-To learn more about developing your project with Expo, look at the following resources:
+Após a primeira execução, para executar o projeto em um ambiente de desenvolvimento, use o seguinte comando:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+`npm start` ou `yarn start`
 
-## Join the community
+Isso abrirá a interface do Expo DevTools, onde você pode escanear o QR code com o aplicativo Expo Go no seu dispositivo ou usar um emulador, mas antes disso, deve pressionar o atalho para alterar do ExpoGo para development-build, pressionando a tecla S quando o servidor estiver pronto.
 
-Join our community of developers creating universal apps.
+## Testes
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Para executar os testes, utilize o comando:
+
+`yarn test` ou `npm test`
