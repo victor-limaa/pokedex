@@ -21,7 +21,7 @@ describe('CatchedScreen', () => {
 
     const { getByText } = render(<CatchedScreen />);
 
-    expect(getByText('Not Found')).toBeTruthy();
+    expect(getByText('No catched pokemons')).toBeTruthy();
   });
 
   it('should render a list of catched pokemons', () => {

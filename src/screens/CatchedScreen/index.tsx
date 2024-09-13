@@ -37,7 +37,7 @@ export const CatchedScreen = () => {
           testID="pokemon-list"
         />
       ) : (
-        <ThemedText>Not Found</ThemedText>
+        <ThemedText>No catched pokemons</ThemedText>
       )}
     </ThemedView>
   );

@@ -9,13 +9,14 @@ import { usePokemonListStore } from '@/stores/usePokemonListStore';
 import { isLoading } from 'expo-font';
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { BackHandler, FlatList, TouchableOpacity } from 'react-native';
 
 export const HomeScreen = () => {
   const { pokemonList, setPokemonList } = usePokemonListStore((state) => state);
   const [hasNextPage, setHasNextPage] = useState(true);
   const { clearLoading, setLoading } = useLoadingStore((state) => state);
   const [filteredPokemonList, setFilteredPokemonList] = useState(pokemonList);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const handleGetPokemonList = async (page: number) => {
     try {
@@ -46,7 +47,7 @@ export const HomeScreen = () => {
   };
 
   const onEndReached = () => {
-    if (hasNextPage && !filteredPokemonList.length) {
+    if (hasNextPage && !isFiltered) {
       const page = getPage();
       handleGetPokemonList(page);
     }
@@ -69,15 +70,19 @@ export const HomeScreen = () => {
           setLoading();
           const response = await PokemonService.getPokemonByName(text);
           setFilteredPokemonList([response]);
+          setIsFiltered(true);
           clearLoading();
           return;
         } catch (error) {
+          setIsFiltered(false);
           clearLoading();
         }
       }
       setFilteredPokemonList(filtered);
+      setIsFiltered(true);
     } else {
       setFilteredPokemonList(pokemonList);
+      setIsFiltered(false);
     }
   };
 
@@ -85,6 +90,16 @@ export const HomeScreen = () => {
     if (!pokemonList.length) {
       handleGetPokemonList(getPage());
     }
+
+    const backhandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        handleSearch('');
+        return true;
+      },
+    );
+
+    return () => backhandler.remove();
   }, []);
 
   useEffect(() => {

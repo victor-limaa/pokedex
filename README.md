@@ -40,14 +40,10 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 
 ## Executando o Projeto
 
-Para executar o projeto pela primeira vez deve utilizar o comando de acordo com a plataforma desejada:
-`expo run:android` ou `expo run:ios`
+Para executar o projeto, deve-se iniciar o emulador ou conectar seu dipositivo ao computador, e utilizar o comando de acordo com a plataforma desejada, por exemplo:
+`npm run android` ou `yarn ios`
 
-Após a primeira execução, para executar o projeto em um ambiente de desenvolvimento, use o seguinte comando:
-
-`npm start` ou `yarn start`
-
-Isso abrirá a interface do Expo DevTools, onde você pode escanear o QR code com o aplicativo Expo Go no seu dispositivo ou usar um emulador, mas antes disso, deve pressionar o atalho para alterar do ExpoGo para development-build, pressionando a tecla S quando o servidor estiver pronto.
+Após executar o comando, aguarde até que o servidor inicie e o aplicativo rode no seu dispositivo ou emulador.
 
 ## Testes
 
