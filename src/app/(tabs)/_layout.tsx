@@ -33,7 +33,7 @@ export default function TabLayout() {
           title: 'Catched',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? 'code-slash' : 'code-slash-outline'}
+              name={focused ? 'save' : 'save-outline'}
               color={color}
             />
           ),
